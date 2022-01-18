@@ -3,9 +3,9 @@ import java.util.NoSuchElementException;
 
 public class DoublyLinkedList<T> implements List<T>, Cloneable {
 
-    private DoublyLinkedListNode<T> head;
-    private DoublyLinkedListNode<T> tail;
-    private int size;
+    protected DoublyLinkedListNode<T> head;
+    protected DoublyLinkedListNode<T> tail;
+    protected int size;
 
     DoublyLinkedList(){
         head = null;
@@ -169,11 +169,11 @@ public class DoublyLinkedList<T> implements List<T>, Cloneable {
     }
 
     public T getFirst(){
-        return head.getData();
+        return head != null ? head.getData() : null;
     }
 
     public T getLast(){
-        return tail.getData();
+        return tail != null ? tail.getData() : null;
     }
 
     @Override
