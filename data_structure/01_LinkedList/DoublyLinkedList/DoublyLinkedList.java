@@ -79,7 +79,7 @@ public class DoublyLinkedList<T> implements List<T>, Cloneable {
         size++;
     }
 
-    public T remove(){
+    public T removeFirst(){
         DoublyLinkedListNode<T> headNode = head;
         if(headNode == null){
             throw new NoSuchElementException();
@@ -91,16 +91,37 @@ public class DoublyLinkedList<T> implements List<T>, Cloneable {
         head = nextNode;
         size--;
 
-        if(size==9){
+        if(size==0){
             tail = null;
         }
         return element;
     }
 
+    public T removeLast(){
+        if(size==1) {
+            return removeFirst();
+        }
+        DoublyLinkedListNode<T> prevNode = tail.getPrev();
+        T element = tail.getData();
+        tail.setNext(null);
+        tail.setPrev(null);
+        tail.setData(null);
+        tail = prevNode;
+        size--;
+        if(size==0){
+            tail = null;
+        }
+        return element;
+    }
+
+    public T remove(){
+        return removeFirst();
+    }
+
     @Override
     public T remove(int index) {
         if(index == 0){
-            return remove();
+            return removeFirst();
         }
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
@@ -145,6 +166,14 @@ public class DoublyLinkedList<T> implements List<T>, Cloneable {
             size--;
         }
         return false;
+    }
+
+    public T getFirst(){
+        return head.getData();
+    }
+
+    public T getLast(){
+        return tail.getData();
     }
 
     @Override
@@ -207,7 +236,9 @@ public class DoublyLinkedList<T> implements List<T>, Cloneable {
         clone.size = 0;
 
         for(DoublyLinkedListNode<T> i = head; i!= null;i=i.getNext()){
-            clone.addLast(i.getData());
+            if(i.getData()!=null){
+	    	clone.addLast(i.getData());
+	    }
         }
         return clone;
     }
